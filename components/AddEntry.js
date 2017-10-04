@@ -6,6 +6,7 @@ import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
 import { Ionicons } from '@expo/vector-icons'
 import TextButton from './TextButton'
+import { submitEntry, removeEntry } from './../utils/api'
 
 const SubmitBtn = ({ onPress }) => {
   return (
@@ -62,7 +63,9 @@ export default class AddEntry extends Component {
 
     // Update Redux
     // Navigate to Home
-    // save to DB
+
+    submitEntry({ key, entry })
+
     // Clear local notifications
   }
   reset = () => {
@@ -70,7 +73,8 @@ export default class AddEntry extends Component {
 
     // update redux
     // navigate to Home
-    // update DB
+
+    removeEntry(key)
   }
   render() {
 
