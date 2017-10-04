@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
-import { getMetricMetaInfo, timeToString } from './../utils/helpers'
+import { getMetricMetaInfo, timeToString, getDailyReminderValue } from './../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
 import { Ionicons } from '@expo/vector-icons'
 import TextButton from './TextButton'
 import { submitEntry, removeEntry } from './../utils/api'
+import { connect } from 'react-redux'
+import { addEntry } from './../actions'
 
 const SubmitBtn = ({ onPress }) => {
   return (
@@ -17,7 +19,7 @@ const SubmitBtn = ({ onPress }) => {
   )
 }
 
-export default class AddEntry extends Component {
+class AddEntry extends Component {
   state = {
     run: 0,
     bike: 0,
@@ -61,7 +63,10 @@ export default class AddEntry extends Component {
       eat: 0
     })
 
-    // Update Redux
+    this.props.dispatch(addEntry({
+      [key]: entry
+    }))
+
     // Navigate to Home
 
     submitEntry({ key, entry })
@@ -71,7 +76,10 @@ export default class AddEntry extends Component {
   reset = () => {
     const key = timeToString()
 
-    // update redux
+    this.props.dispatch(addEntry({
+      [key]: getDailyReminderValue()
+    }))
+
     // navigate to Home
 
     removeEntry(key)
@@ -85,7 +93,7 @@ export default class AddEntry extends Component {
             name='ios-happy-outline'
             size={100} />
           <Text>You already logged your information for today</Text>
-          <TextButton>Reset</TextButton>
+          <TextButton onPress={this.reset}>Reset</TextButton>
         </View>
       )
     }
@@ -119,3 +127,10 @@ export default class AddEntry extends Component {
     )
   }
 }
+function mapStateToProps(state){
+  const key = timeToString()
+  return {
+    alreadyLogged: state[key] && typeof state[key].today === 'undefined'
+  }
+}
+export default connect(mapStateToProps)(AddEntry)
