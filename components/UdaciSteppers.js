@@ -1,10 +1,22 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { FontAwesome, Entype } from '@expo/vector-icons'
 
-export default function UdacitySteppers() {
+export default function UdacitySteppers({ step, value, unit, max, onIncrement, onDecrement }) {
   return (
     <View>
-      <Text>UdacitySteppers</Text>
+      <View>
+        <TouchableOpacity onPress={onDecrement}>
+          <FontAwesome name='minus' size={30} color={'black'} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onIncrement}>
+          <FontAwesome name='plus' size={30} color={'black'} />
+        </TouchableOpacity>
+      </View>
+      <View>
+        <Text>{value}</Text>
+        <Text>{unit}</Text>
+      </View>
     </View>
   )
 }

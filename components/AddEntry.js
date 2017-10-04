@@ -79,11 +79,11 @@ export default class AddEntry extends Component {
                 <UdaciSlider
                   value={value}
                   onChange={value => this.slide(key, value)}
-                  {...rest}/> :
+                  {...rest} /> :
                 <UdaciSteppers
                   value={value}
-                  onIcrement={value => this.increment(key)}
-                  onDecrement={value => this.increment(key)}
+                  onIncrement={value => this.increment(key)}
+                  onDecrement={value => this.decrement(key)}
                   {...rest} />}
             </View>
           )
