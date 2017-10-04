@@ -3,7 +3,7 @@ import {
   ADD_ENTRY
 } from './../actions'
 
-export default function entries(state={}, action) {
+function entries(state={}, action) {
   switch (action.type) {
     case RECEIVE_ENTRIES:
       return {
@@ -19,3 +19,5 @@ export default function entries(state={}, action) {
       return state
   }
 }
+
+export default entries
