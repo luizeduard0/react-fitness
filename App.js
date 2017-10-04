@@ -8,9 +8,11 @@ import reducer from './reducers'
 export default class App extends React.Component {
   render() {
     return (
-      <View>
-        <AddEntry />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View>
+          <AddEntry />
+        </View>
+      </Provider>
     );
   }
 }
