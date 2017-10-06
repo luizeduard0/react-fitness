@@ -20,9 +20,6 @@ class History extends Component {
 
     fetchCalendarResults()
       .then((entries) => dispatch(receiveEntries(JSON.parse(entries))))
-      .catch(error => {
-        console.log('ERROR', error)
-      })
       .then(({ entries }) => {
         if(!entries[timeToString()]) {
           dispatch(addEntry({
@@ -41,7 +38,10 @@ class History extends Component {
                 {today}
               </Text>
             </View>
-          : <TouchableOpacity onPress={() => console.log('pressed')}>
+          : <TouchableOpacity onPress={() => this.props.navigation.navigate(
+            'EntryDetail',
+            { entryId: key }
+          )}>
               <MetricCard
                 metrics={metrics}
                 date={formattedDate} />
