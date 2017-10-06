@@ -10,6 +10,7 @@ import { submitEntry, removeEntry } from './../utils/api'
 import { connect } from 'react-redux'
 import { addEntry } from './../actions'
 import { purple, white } from './../utils/colors'
+import { NavigationActions } from 'react-navigation'
 
 const SubmitBtn = ({ onPress }) => {
   return (
@@ -69,7 +70,7 @@ class AddEntry extends Component {
       [key]: entry
     }))
 
-    // Navigate to Home
+    this.toHome()
 
     submitEntry({ key, entry })
 
@@ -86,8 +87,12 @@ class AddEntry extends Component {
 
     removeEntry(key)
   }
+  toHome = () => {
+    this.props.navigation.dispatch(NavigationActions.back({
+      key: 'AddEntry'
+    }))
+  }
   render() {
-
     if(this.props.alreadyLogged) {
       return (
         <View style={styles.center}>
